@@ -397,3 +397,4 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 /MST3D/MST3D/output.txt
+/MSTBPP/MSTBPP/output.txt
