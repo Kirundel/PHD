@@ -12,6 +12,7 @@ using namespace std;
 #include <fstream>
 ifstream cin("input.txt");
 ofstream cout("output.txt");
+//#include <iostream>
 
 using pii = pair<int, int>;
 using ll = long long;
@@ -141,7 +142,7 @@ void calc_mst() {
 		sorted_edges.push_back({ e.weight, e.number });
 	}
 
-	sort(sorted_edges);
+	rsort(sorted_edges);
 	DSU dsu(n);
 	parent.resize(n, { -1, -1 });
 	mst.resize(n);
@@ -234,7 +235,7 @@ void precalc_lower_tolerances() {
 		}
 	}
 
-	sort(sorted_edges);
+	rsort(sorted_edges);
 
 	DSU dsu(n);
 
@@ -287,7 +288,7 @@ void precalc_upper_tolerances() {
 		}
 	}
 
-	sort(sorted_edges);
+	rsort(sorted_edges);
 
 	DSU dsu(n);
 
@@ -333,27 +334,27 @@ void answer_queries() {
 
 		if (l_l != r_l) {
 			if (edge.in_mst) {
-				cout << "-INF ";
 				if (edge.lower_tolerance == INF) {
-					cout << "NaN";
+					cout << "INF ";
 				}
 				else {
-					cout << edge.lower_tolerance << " ";
+					cout << edge.weight - edge.lower_tolerance << " ";
 				}
+				cout << "INF ";
 			}
 			else {
+				cout << "INF ";
 				if (edge.upper_tolerance == -INF) {
-					cout << "NaN";
+					cout << "INF";
 				}
 				else {
-					cout << edge.upper_tolerance;
+					cout << edge.upper_tolerance - edge.weight;
 				}
-				cout << " INF";
 			}
 
 			cout << "\n";
 		} else {
-			cout << "NaN NaN\n";
+			cout << "INF INF\n";
 		}
 	}
 }

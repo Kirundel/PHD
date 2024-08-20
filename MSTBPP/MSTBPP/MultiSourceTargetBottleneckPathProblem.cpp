@@ -8,6 +8,7 @@
 #include <cassert>  
 
 #include <fstream>
+//#include <iostream>
 ifstream cin("input.txt");
 ofstream cout("output.txt");
 
@@ -23,6 +24,12 @@ inline void sort(vector<T>& x)
 }
 
 template <typename T>
+inline void rsort(vector<T>& x)
+{
+	sort(x.rbegin(), x.rend());
+}
+
+template <typename T>
 inline void set_max(T& x, T y)
 {
 	x = max(x, y);
@@ -31,7 +38,11 @@ inline void set_max(T& x, T y)
 template<typename T>
 void print_vector(vector<T>& a) {
 	for (T& element : a) {
-		cout << element << " ";
+		if (element == 0) {
+			cout << 0 << " ";
+		} else {
+			cout << INF - element << " ";
+		}
 	}
 	cout << endl;
 }
@@ -170,6 +181,7 @@ void read() {
 	for (int i = 0; i < m; i++) {
 		int a, b, c;
 		cin >> a >> b >> c;
+		c = INF - c;
 		a--; b--;
 		graph[a].push_back({ b, c });
 		graph[b].push_back({ a, c });
