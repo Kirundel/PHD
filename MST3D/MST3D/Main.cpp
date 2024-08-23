@@ -10,7 +10,6 @@
 
 
 int main() {
-    OrthogonalSearchChecker checker;
     //checker.read_arr();
     //checker.check_segment_tree<SegmentTree1D>();
     //checker.check_segment_tree<SegmentTree2D>();
@@ -31,20 +30,31 @@ int main() {
     //auto result_3 = checker.get_working_time_mst_pipeline<SegmentTree3D>();
     //std::cout << "3D: " << result_3 << std::endl;
 
-    checker.generate_arr_3D_cell(10000);
+    //checker.generate_arr_3D_cell(10000);
     //checker.generate_arr_3D_cell_rotated(16);
+
     
     //checker.print_distances();
 
-    KruskalAlgorithm kruskal;
-    Standard3DMSTPipeline standard(kruskal);
-    std::cout << "Kruskal: " << checker.get_working_time_mst_3d(standard) << std::endl;
+    for (int i = 9; i <= 18; i++) {
+        OrthogonalSearchChecker checker;
 
-    Prim3DAlgortihm prim;
-    std::cout << "Prim: " << checker.get_working_time_mst_3d(prim) << std::endl;
-    
-    Orthogonal3DMSTPipeline orthogonal(kruskal);
-    std::cout << "Orthogonal: " << checker.get_working_time_mst_3d(orthogonal) << std::endl;
+        int num = 1 << i;
+
+        checker.generate_arr_full_random(num);
+
+        std::cout << num << std::endl;
+
+        KruskalAlgorithm kruskal;
+        //Standard3DMSTPipeline standard(kruskal);
+        //std::cout << "Kruskal: " << checker.get_working_time_mst_3d(standard) << std::endl;
+
+        //Prim3DAlgortihm prim;
+        //std::cout << "Prim: " << checker.get_working_time_mst_3d(prim) << std::endl;
+
+        Orthogonal3DMSTPipeline orthogonal(kruskal);
+        std::cout << "Orthogonal: " << checker.get_working_time_mst_3d(orthogonal) << std::endl;
+    }
 
     //std::cout << "COMPARE: " << checker.compare_mst_3d(standard, prim) << " " << checker.compare_mst_3d(prim, orthogonal) << std::endl;
     //std::cout << "COMPARE: " << checker.compare_mst_3d(prim, orthogonal) << std::endl;
