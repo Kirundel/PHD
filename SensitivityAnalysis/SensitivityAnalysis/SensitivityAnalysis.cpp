@@ -91,6 +91,7 @@ struct edge {
 	int lower_tolerance;
 	int upper_tolerance;
 	bool in_mst;
+	int lower_tolerance_idx;
 };
 
 struct edge_2 {
@@ -124,7 +125,7 @@ void read_graph(){
 		int from, to, weight;
 		cin >> from >> to >> weight;
 		from--; to--;
-		all_edges.push_back({ min(from, to), max(from, to), weight, i, INF, -INF, false });
+		all_edges.push_back({ min(from, to), max(from, to), weight, i, INF, -INF, false, -1 });
 	}
 
 	graph.resize(n);
@@ -263,6 +264,7 @@ void precalc_lower_tolerances() {
 
 			if (left != -1) {
 				all_edges[par.second].lower_tolerance = e.weight;
+				all_edges[par.second].lower_tolerance_idx = e.number;
 				cur_min[left] = cur_min[cur_p];
 			}
 
@@ -338,7 +340,8 @@ void answer_queries() {
 					cout << "INF ";
 				}
 				else {
-					cout << edge.weight - edge.lower_tolerance << " ";
+					int additional_component = all_edges[edge.lower_tolerance_idx].upper_tolerance == -INF ? INF : all_edges[edge.lower_tolerance_idx].upper_tolerance;
+					cout << edge.weight - min(edge.lower_tolerance, additional_component) << " ";
 				}
 				cout << "INF ";
 			}
